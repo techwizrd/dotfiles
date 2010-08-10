@@ -1,0 +1,29 @@
+NERD_commenter
+	,ci                 toggles the comment state of the selected lines
+	,cl                 makes an aligned comment
+
+NERD_tree
+	:NERDTReeToggle     toggle the tree's open/close state
+
+vim-pastie
+    :%Pastie            create a paste from the current file
+    :Pastie http://pastie.org/768      Load paste from url
+    :Pastie *           create a paste from the clipboard
+    $ vim +Pastie       create a new paste
+    $ vim +768Pastie    Load paste from url
+
+FuzzyFinder
+    :FufFile            Open files
+    :FufDir             Switch directory
+    :FufTag             Open tags
+    :FufBuffer          Open buffers
+    ,y                  Open files
+    ,t                  Open tags
+
+bufexplorer
+    \be                 explore buffers
+    \bs                 explore buffers in horizontal split
+    \bv                 explore buffers in vertical split
+
+bufkill
+    :BD                 close the current buffer but keep the split in place
