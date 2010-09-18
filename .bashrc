@@ -82,6 +82,7 @@ fi
 #alias la='ls -A'
 #alias l='ls -CF'
 alias latest_downloads='ls -t ~/Downloads/ | head '
+alias rm="rm -rv"
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
@@ -164,5 +165,3 @@ set -o vi
 _prompt_tunadir
 #_prompt_block
 #_prompt_block2
-
-#python ~/.shadowbin/untiltest.py

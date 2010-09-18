@@ -6,11 +6,26 @@ set nocompatible
 filetype plugin on
 filetype indent on
 
-set tabstop=4
-set shiftwidth=4
-set expandtab
+" Default tab settings
+set tabstop=4 shiftwidth=4 expandtab
 
-set gcr=a:blinkon0  " never blink the cursor
+augroup vimrc
+au!
+autocmd FileType css setlocal sw=4 sts=4 et
+autocmd FileType haskell setlocal sw=4 sts=4 et
+autocmd FileType html setlocal sw=2 sts=2 et
+autocmd FileType javascript setlocal sw=2 sts=2 et
+autocmd FileType java setlocal sw=4 sts=4 et
+autocmd FileType perl setlocal sw=4 sts=4 et
+autocmd FileType php setlocal sw=4 sts=4 et
+autocmd FileType python setlocal sw=4 sts=4 et
+autocmd FileType ruby setlocal sw=2 sts=2 et
+autocmd FileType scheme setlocal sw=2 sts=2 et
+autocmd FileType sql setlocal et
+autocmd FileType text setlocal sw=2 sts=2 et
+augroup END
+
+"set gcr=a:blinkon0  " never blink the cursor
 
 set ruler
 set mouse=a
@@ -18,7 +33,7 @@ set mouse=a
 set incsearch
 set hlsearch
 
-set backspace=2
+set backspace=2 " allow backspacing over everything in insert mode
 
 "Don't create backup files everywhere
 "set backupdir=~/.vim/backup
@@ -27,6 +42,7 @@ set backupdir=/tmp
 set dir=/tmp
 
 syntax on
+
 set number
 nnoremap <S-e> :set nonumber!<CR>:set foldcolumn=0<CR>
 
@@ -36,13 +52,14 @@ nnoremap <PageUp> :bp<CR>
 nnoremap <Control><PageDown> :tabn<CR>
 nnoremap <Control><PageUp> :tabp<CR>
 
-"set foldmethod=syntax
 nnoremap <space> za
 nnoremap ,b zR<Cr>
 nnoremap ,n zM<Cr>
 
+nnoremap <C-x> :TlistClose<CR>:NERDTreeToggle<CR>
+nnoremap <S-x> :NERDTreeClose<CR>:TlistToggle<CR>
+
 "Remap FuzzyFinder
-"Open files
 nnoremap ,t :FufFile<Cr>
 
 " Always gj, gk
@@ -55,6 +72,8 @@ au BufWinEnter * silent! loadview
 
 set background=dark
 set t_Co=256
+
+set switchbuf=useopen
 
 colorscheme wombat256
 if has('gui_running')
@@ -71,3 +90,8 @@ if has('gui_running')
 
     set guifont=Monospace\ 8
 endif
+
+set autochdir
+
+"set list
+"set listchars=tab:>.
