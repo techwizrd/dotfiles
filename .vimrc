@@ -1,66 +1,69 @@
 filetype off
-
 call pathogen#runtime_append_all_bundles()
+filetype plugin on
 
 set nocompatible
-filetype plugin on
 filetype indent on
+set modelines=0
 
-" Default tab settings
-set tabstop=4 shiftwidth=4 expandtab
+syntax on       " enable syntax highlighting
 
-augroup vimrc
-au!
-autocmd FileType css setlocal sw=4 sts=4 et
-autocmd FileType haskell setlocal sw=4 sts=4 et
-autocmd FileType html setlocal sw=2 sts=2 et
-autocmd FileType javascript setlocal sw=2 sts=2 et
-autocmd FileType java setlocal sw=4 sts=4 et
-autocmd FileType perl setlocal sw=4 sts=4 et
-autocmd FileType php setlocal sw=4 sts=4 et
-autocmd FileType python setlocal sw=4 sts=4 et
-autocmd FileType ruby setlocal sw=2 sts=2 et
-autocmd FileType scheme setlocal sw=2 sts=2 et
-autocmd FileType sql setlocal et
-autocmd FileType text setlocal sw=2 sts=2 et
-augroup END
+" My default tab settings
+set tabstop=4 shiftwidth=4 softtabstop=4 expandtab
 
-"set gcr=a:blinkon0  " never blink the cursor
-
+set encoding=utf-8
+set cursorline
 set ruler
-set mouse=a
-
-set incsearch
-set hlsearch
-
+set ttyfast
+set mouse=a     " enable mouse usage in terminal (good for scrolling)
 set backspace=2 " allow backspacing over everything in insert mode
 
+" Make vim search sane
+" use regular regexes, not vim's weird default
+nnoremap / /\v
+vnoremap / /\v
+set ignorecase
+set smartcase
+set gdefault    " apply substitutions globally on lines
+set incsearch
+set showmatch
+set hlsearch
+nnoremap <leader><space> :noh<CR> " clear the search highlight
+
 "Don't create backup files everywhere
-"set backupdir=~/.vim/backup
-"set dir=~/.vim/backup
 set backupdir=/tmp
 set dir=/tmp
 
-syntax on
+let mapleader=","
 
+" show line numbers
 set number
-nnoremap <S-e> :set nonumber!<CR>:set foldcolumn=0<CR>
+nnoremap <leader>e :set nonumber!<CR>:set foldcolumn=0<CR>
 
-nnoremap <PageDown> :bn<CR>
+" Switch buffers using PageUp/PageDown
+nnoremap <PageDown> :bn<CR>     
 nnoremap <PageUp> :bp<CR>
-
 nnoremap <Control><PageDown> :tabn<CR>
 nnoremap <Control><PageUp> :tabp<CR>
 
-nnoremap <space> za
-nnoremap ,b zR<Cr>
-nnoremap ,n zM<Cr>
+" Open NERDTree or TagList using Control+x and Shift+x respectively
+nnoremap <C-x> :NERDTreeToggle<CR>
+nnoremap <S-x> :TlistToggle<CR>
 
-nnoremap <C-x> :TlistClose<CR>:NERDTreeToggle<CR>
-nnoremap <S-x> :NERDTreeClose<CR>:TlistToggle<CR>
+" Remap FuzzyFinder
+nnoremap <leader>t :FufFile<Cr>
 
-"Remap FuzzyFinder
-nnoremap ,t :FufFile<Cr>
+" Use ,v to paste from the X clipboard
+nnoremap <leader>v "+gP
+
+" Hardwrap a paragraph of text
+nnoremap <leader>q gqip
+
+" Open a scratch buffer
+nnoremap <leader><tab> :Scratch<CR>
+
+" Remap jj to Esc in insert mode
+inoremap jj <ESC>
 
 " Always gj, gk
 nnoremap j gj
@@ -70,14 +73,23 @@ nnoremap k gk
 " au BufWinLeave * silent! mkview
 au BufWinEnter * silent! loadview
 
-set background=dark
-set t_Co=256
+" Save on lose focus
+au FocusLost * :w
 
 set switchbuf=useopen
 
+set autochdir
+
+" Show tabstops (and optionally eol characters)
+set list
+set listchars=tab:▸\
+"set listchars=tab:▸\ ,eol:¬
+
+set background=dark
+set t_Co=256
 colorscheme wombat256
 if has('gui_running')
-    " wombat-eye looks better in GViM
+    " wombat-eye looks better in GVim
     colorscheme wombat-eye
 
     "Disable toolbar and menubar in GVim
@@ -90,8 +102,3 @@ if has('gui_running')
 
     set guifont=Monospace\ 8
 endif
-
-set autochdir
-
-"set list
-"set listchars=tab:>.
