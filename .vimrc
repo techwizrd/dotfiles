@@ -22,11 +22,11 @@ set backspace=2 " allow backspacing over everything in insert mode
 " use regular regexes, not vim's weird default
 nnoremap / /\v
 vnoremap / /\v
-set ignorecase
-set smartcase
+set ignorecase  " case insensitive search
+set smartcase   " case sensitive when uppercase present
 set gdefault    " apply substitutions globally on lines
 set incsearch
-set showmatch
+set showmatch   " show matching brackets and parentheses
 set hlsearch
 nnoremap <leader><space> :noh<CR> " clear the search highlight
 
@@ -54,7 +54,8 @@ nnoremap <S-x> :TlistToggle<CR>
 nnoremap <leader>t :FufFile<Cr>
 
 " Use ,v to paste from the X clipboard
-nnoremap <leader>v "+gP
+"nnoremap <leader>v "+gP
+nnoremap <leader>v i<C-r>+
 
 " Hardwrap a paragraph of text
 nnoremap <leader>q gqip
@@ -69,12 +70,13 @@ inoremap jj <ESC>
 nnoremap j gj
 nnoremap k gk
 
+" Jump to top or bottom of screen
+nnoremap <S-h> gT
+nnoremap <S-l> gt 
+
 " Preserve fold state
 " au BufWinLeave * silent! mkview
 au BufWinEnter * silent! loadview
-
-" Save on lose focus
-au FocusLost * :w
 
 set switchbuf=useopen
 
@@ -82,8 +84,15 @@ set autochdir
 
 " Show tabstops (and optionally eol characters)
 set list
-set listchars=tab:▸\
+"set listchars=tab:▸\
+set listchars=tab:▸.
 "set listchars=tab:▸\ ,eol:¬
+
+"Vim 7.3+ specific features
+if version >= 730
+    set colorcolumn=80
+    set relativenumber
+endif
 
 set background=dark
 set t_Co=256
@@ -91,6 +100,9 @@ colorscheme wombat256
 if has('gui_running')
     " wombat-eye looks better in GVim
     colorscheme wombat-eye
+
+    " Show 40 lines instead of default 24
+    set lines=40
 
     "Disable toolbar and menubar in GVim
     set guioptions-=m
