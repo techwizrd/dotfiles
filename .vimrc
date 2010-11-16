@@ -28,7 +28,8 @@ set gdefault    " apply substitutions globally on lines
 set incsearch
 set showmatch   " show matching brackets and parentheses
 set hlsearch
-nnoremap <leader><space> :noh<CR> " clear the search highlight
+" clear the search highlight
+nnoremap <leader><space> :noh<CR> 
 
 "Don't create backup files everywhere
 set backupdir=/tmp
@@ -89,7 +90,7 @@ set listchars=tab:▸.
 "set listchars=tab:▸\ ,eol:¬
 
 "Vim 7.3+ specific features
-if version >= 730
+if version >= 703
     set colorcolumn=80
     set relativenumber
 endif
@@ -113,4 +114,5 @@ if has('gui_running')
     set guioptions-=LlRrb
 
     set guifont=Monospace\ 8
+    autocmd FocusLost * wall
 endif
