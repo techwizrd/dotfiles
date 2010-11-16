@@ -1,9 +1,9 @@
 NERD_commenter
-	,ci                 toggles the comment state of the selected lines
-	,cl                 makes an aligned comment
+    ,ci                 toggles the comment state of the selected lines
+    ,cl                 makes an aligned comment
 
 NERD_tree
-	:NERDTReeToggle     toggle the tree's open/close state
+    :NERDTReeToggle     toggle the tree's open/close state
 
 vim-pastie
     :%Pastie            create a paste from the current file
@@ -21,9 +21,9 @@ FuzzyFinder
     ,t                  Open tags
 
 bufexplorer
-    \be                 explore buffers
-    \bs                 explore buffers in horizontal split
-    \bv                 explore buffers in vertical split
+    ,be                 explore buffers
+    ,bs                 explore buffers in horizontal split
+    ,bv                 explore buffers in vertical split
 
 bufkill
     :BD                 close the current buffer but keep the split in place
