@@ -93,6 +93,7 @@ set listchars=tab:▸.
 if version >= 703
     set colorcolumn=80
     set relativenumber
+    nnoremap <leader>e :set nonumber!<CR>:set foldcolumn=0<CR>
 endif
 
 set background=dark
