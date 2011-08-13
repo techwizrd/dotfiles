@@ -159,6 +159,10 @@ function _prompt_block_short {
 EDITOR=vim
 set -o vi
 
+alias upgrade-everything="sudo apt-get update && sudo apt-get dist-upgrade -y --force-yes && ~/.shadowbin/nme 'Upgrade Complete'"
+
+#python ~/.shadowbin/untiltest.py
+
 #_prompt_old
 #_prompt_cool
 #_prompt_tuna

@@ -27,3 +27,8 @@ bufexplorer
 
 bufkill
     :BD                 close the current buffer but keep the split in place
+
+guifont++
+    +                   increase the font size
+    -                   decrease the font size
+    =                   reset the font size
