@@ -353,9 +353,9 @@ autocmd BufEnter ~/.devilspie/* setf lisp
 
 set clipboard=unnamed
 
-" use Linux clipboard register if supported
+" use Linux clipboard register if supported (requires vim 7.3.74)
 if has("unix") && v:version >= 703
-    set clibpboard+=unnamedplus
+    "set clibpboard+=unnamedplus
 endif
 
 " Use ,v to paste from the X clipboard
