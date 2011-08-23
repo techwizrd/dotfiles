@@ -333,29 +333,6 @@ autocmd BufEnter *.red setf textile
 autocmd BufEnter *.plan setf ruby
 autocmd BufEnter ~/.devilspie/* setf lisp
 
-" Ruby block auto-completion
-  function! RubyEndToken()
-    let current_line = getline( '.' )
-    let braces_at_end = '{\s*\(|\(,\|\s\|\w\)*|\s*\)\?$'
-    let brackets_at_end = '[\s*\(|\(,\|\s\|\w\)*|\s*\)\?$'
-    let stuff_without_do = '^\s*\(class\|if\|unless\|begin\|case\|for\|module\|while\|until\|def\)'
-    let with_do = 'do\s*\(|\(,\|\s\|\w\)*|\s*\)\?$'
-
-    if match(current_line, braces_at_end) >= 0
-      return "\<CR>}\<C-O>O"
-    elseif match(current_line, brackets_at_end) >= 0
-      return "\<CR>\1\<C-O>O"
-    elseif match(current_line, stuff_without_do) >= 0
-      return "\<CR>end\<C-O>O"
-    elseif match(current_line, with_do) >= 0
-      return "\<CR>end\<C-O>O"
-    else
-      return "\<CR>"
-    endif
-  endfunction
-
-  autocmd FileType ruby inoremap <buffer> <CR> <C-R>=RubyEndToken()<CR>
-
 " }}}
 
 " COPY / PASTE {{{

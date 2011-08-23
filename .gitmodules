@@ -10,3 +10,6 @@
 [submodule ".vim/bundle/tagbar"]
 	path = .vim/bundle/tagbar
 	url = git://github.com/majutsushi/tagbar.git
+[submodule ".vim/bundle/endwise"]
+	path = .vim/bundle/endwise
+	url = git://github.com/tpope/vim-endwise.git
