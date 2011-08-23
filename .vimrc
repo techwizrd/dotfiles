@@ -372,9 +372,11 @@ vnoremap <C-C> "+y
 
 " PLUGIN OPTIONS AND PLUGIN REMAPPINGS {{{
 
+let g:tagbar_usearrows = 1 " make Tagbar to use arrows
+
 " Open NERDTree or TagList using Control+x and Shift+x respectively
 nnoremap <C-x> :NERDTreeToggle<CR>
-nnoremap <S-x> :TlistToggle<CR>
+nnoremap <S-x> :TagbarToggle<CR>
 
 " Remap FuzzyFinder
 nnoremap <leader>t :FufFile<Cr>
