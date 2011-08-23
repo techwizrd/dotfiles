@@ -36,13 +36,14 @@ filetype plugin on " re-enable filetype plugin
 set modelines=0    " stop vim from checking for modelines
 
 " quickly edit and source .vimrc
-nnoremap <Leader>er :edit $MYVIMRC<CR>
-nnoremap <Leader>sr :source $MYVIMRC<CR>
+nnoremap <silent> <S-W>e :edit $MYVIMRC<CR>
+nnoremap <silent> <S-W>r :source $MYVIMRC<CR>
 
 let mapleader=","
 
 " ENCODING {{{
 
+set termencoding=utf-8
 set encoding=utf-8                            " encoding used within a vim
 "set fileencodings=ucs-bom,utf-8,default,latin1 " encodings to try when editing a file
 
@@ -265,16 +266,23 @@ set foldmethod=marker " fold code by markers
 " au BufWinLeave * silent! mkview
 au BufWinEnter * silent! loadview
 
+set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo
+nnoremap <space> za
+
 " }}}
 
 " BACKUP OPTIONS {{{
 
 "Don't create backup files everywhere
-"set backupdir=/tmp
-"set dir=/tmp
+"set backupdir=~/.vim/tmp/backup,/tmp
+"set directory=~/.vim/tmp/swap,/tmp
 set nobackup
 set nowritebackup
 set noswapfile
+if v:version >= 730
+  set undofile
+  set undodir=~/.vim/tmp/undo,/tmp
+endif
 
 " }}}
 
@@ -300,7 +308,8 @@ set tabstop=4      " width of a tab character in spaces
 set shiftwidth=4   " number of spaces to use for autoindent
 set softtabstop=4  " defines number of spaces for adding/removing tabs
 set expandtab      " insert spaces instead of tabs
-set cindent        " automatic indenting 
+set autoindent     " automatic indenting
+set cindent        " automatic indenting
 set shiftround     " indent/dedent to nearest tabstops
 filetype indent on " enable automatic indentation based on filetype
 
