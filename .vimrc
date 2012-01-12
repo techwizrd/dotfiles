@@ -2,8 +2,8 @@
 
 " AUTHOR:  Kunal Sarkhel
 " EMAIL:   <theninja@bluedevs.net>
-" DATE:    August 12, 2011
-" WEBSITE: https://github.com/techwizrd/dotfiles/blob/master/.vimrc
+" DATE:    January 12, 2012
+" WEBSITE: https://github.com/techwizrd/dotfiles/
 " LICENSE: GPLv3 available at http:/http://www.gnu.org/licenses/gpl-3.0.html/
 
 " NOTES: I've written this over the past few years by reading through the Vim
@@ -28,9 +28,31 @@ if has("win32")
     set runtimepath=~/.vim,$VIMRUNTIME
 endif
 
-" Enable Pathogen to load plugin bundles from ~/.vim/bundles/
-filetype off       " temporarily disable for Pathogen
-call pathogen#runtime_append_all_bundles()
+" Enable Pathogen to load plugin bundles from ~/.vim/bundle/
+"filetype off       " temporarily disable for Pathogen
+"call pathogen#runtime_append_all_bundles()
+"filetype plugin on " re-enable filetype plugin
+
+" Enable Vundle to load plugin bundles from ~/.vim/bundle/
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+Bundle 'gmarik/vundle'
+
+" Bundles {{{
+Bundle 'Raimondi/delimitMate'
+Bundle 'tpope/vim-endwise'
+Bundle 'scrooloose/nerdcommenter'
+Bundle 'scrooloose/nerdtree'
+Bundle 'altercation/vim-colors-solarized'
+Bundle 'Tagbar'
+Bundle 'Lokaltog/vim-powerline'
+Bundle 'wincent/Command-T'
+" vim-script mirrors
+Bundle 'vim-scripts/bufexplorer.zip'
+Bundle 'vim-scripts/pythoncomplete'
+Bundle 'vim-scripts/UltiSnips'
+" }}}
+
 filetype plugin on " re-enable filetype plugin
 
 set modelines=0    " stop vim from checking for modelines
@@ -62,6 +84,8 @@ set backspace=2    " allow backspacing over everything in insert mode
 
 set showcmd        " always show the command being typed
 set showmode       " show current mode
+
+set laststatus=2   " show statusline by default (for vim-powerline)
 
 " Show tabstops (and optionally eol characters)
 set list listchars=tab:▸·,trail:·
@@ -186,68 +210,6 @@ endif
 
 "}}}
 
-"" STATUSLINE {{{
-
-"" use smart statusline if 256 colours are available or if gVim is running
-"if &t_Co == 256 || has("gui_running")
-"   set statusline=%!MyStatusLine('Enter')
-
-"   " colours
-"   " 113 / #87d75f : light-green
-"   " 203 / #ff5f5f : red
-"   " 208 / #ff8700 : orange
-"   " 212 / #ff87d7 : pink
-"   highlight StatColor guibg=#87d75f guifg=Black ctermbg=113 ctermfg=Black
-"   highlight Modified guibg=#ff8700 guifg=Black ctermbg=208 ctermfg=Black
-
-"   augroup smart_statusline
-"       autocmd!
-"       autocmd WinEnter * setlocal statusline=%!MyStatusLine('Enter')
-"       autocmd WinLeave * setlocal statusline=%!MyStatusLine('Leave')
-
-"       autocmd InsertEnter * call InsertStatuslineColor(v:insertmode)
-"       autocmd InsertLeave * highlight StatColor guibg=#87d75f guifg=Black ctermbg=113 ctermfg=Black
-"       autocmd InsertLeave * highlight Modified guibg=#ff8700 guifg=Black ctermbg=208 ctermfg=Black
-"   augroup end
-
-"   function! MyStatusLine(mode)
-"       let l:statusline = ""
-"       if a:mode == "Enter"
-"           let l:statusline .= "%#StatColor#"
-"       endif
-
-"       let l:statusline .= "\(%n\)\ %f\ "
-"       if a:mode == "Enter"
-"           let l:statusline .= "%*"
-"       endif
-
-"       let l:statusline .= "%#Modified#%m"
-"       if a:mode == "Leave"
-"           let l:statusline .= "%*%r"
-"       elseif a:mode == "Enter"
-"           let l:statusline .= "%r%*"
-"       endif
-
-"       let l:statusline .= "\ (%l,%v)\ [%P\ of\ %L]%=%w\ %y\ [%{&encoding}:%{&fileformat}]"
-"       return l:statusline
-"   endfunction
-
-"   function! InsertStatuslineColor(mode)
-"       if a:mode == "i"
-"           highlight StatColor guibg=#ff5f5f ctermbg=203
-"       elseif a:mode == "r"
-"           highlight StatColor guibg=#ff87d7 ctermbg=212
-"       elseif a:mode == "v"
-"           highlight StatColor guibg=#ff87d7 ctermbg=212
-"       else
-"           highlight StatColor guibg=#ff5f5f ctermbg=203
-"       endif
-"   endfunction
-"else
-"   set statusline=\(%n\)\ %f\ %m%r\ (%l,%v)\ [%P\ of\ %L]%=%w\ %y\ [%{&encoding}:%{&fileformat}]
-"endif
-
-"" }}}
 
 " }}}
 
@@ -365,10 +327,10 @@ nnoremap <C-x> :NERDTreeToggle<CR>
 nnoremap <S-x> :TagbarToggle<CR>
 
 " Remap FuzzyFinder
-nnoremap <leader>t :FufFile<Cr>
+"nnoremap <leader>t :FufFile<Cr>
 
 " Open a Scratch buffer
-nnoremap <leader><tab> :Scratch<CR>
+"nnoremap <leader><tab> :Scratch<CR>
 
 " DelimitMate
 let delimitMate_matchpairs = "(:),[:],{:},<:>"
