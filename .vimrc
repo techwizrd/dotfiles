@@ -28,17 +28,18 @@ if has("win32")
     set runtimepath=~/.vim,$VIMRUNTIME
 endif
 
-" Enable Pathogen to load plugin bundles from ~/.vim/bundle/
+" Enable Pathogen to load plugin bundles from ~/.vim/bundle/ {{{
 filetype off       " temporarily disable for Pathogen
 call pathogen#runtime_append_all_bundles()
 filetype plugin on " re-enable filetype plugin
+" }}}
 
-" Enable Vundle to load plugin bundles from ~/.vim/bundle/
+" Enable Vundle to load plugin bundles from ~/.vim/bundle/ {{{
 "set rtp+=~/.vim/bundle/vundle/
 "call vundle#rc()
 "Bundle 'gmarik/vundle'
 
-"" Bundles {{{
+" Bundles {{{
 "Bundle 'Raimondi/delimitMate'
 "Bundle 'tpope/vim-endwise'
 "Bundle 'scrooloose/nerdcommenter'
@@ -46,13 +47,16 @@ filetype plugin on " re-enable filetype plugin
 "Bundle 'altercation/vim-colors-solarized'
 "Bundle 'Tagbar'
 "Bundle 'Lokaltog/vim-powerline'
-"Bundle 'myusuf3/numbers.vim'
-"" vim-script mirrors
+"Bundle 'sjl/badwolf'
+"Bundle 'kien/ctrlp.vim'
+"Bundle 'mikewest/vimroom'
+"Bundle 'tristen/vim-sparkup'
+" vim-script mirrors
 "Bundle 'vim-scripts/bufexplorer.zip'
 "Bundle 'vim-scripts/pythoncomplete'
 "Bundle 'vim-scripts/UltiSnips'
-"Bundle 'vim-scripts/AutoComplPop'
-"" }}}
+" }}}
+" }}}
 
 filetype plugin on " re-enable filetype plugin
 
@@ -91,9 +95,6 @@ set laststatus=2   " show statusline by default (for vim-powerline)
 " Show tabstops (and optionally eol characters)
 set list listchars=tab:▸·,trail:·
 "set list listchars=tab:▸\ ,eol:¬
-
-nnoremap <leader>qw :set list listchars=tab:▸·,trail:·<CR>
-nnoremap <leader>qe :set list!<CR>
 
 " HELPFUL REMAPPINGS {{{
 
@@ -193,11 +194,7 @@ if has('gui_running') " gvim options
     "set guioptions-=b " remove bottom scrollbar
 
     if has("unix")
-        "set guifont=Monospace\ 8
-
-        " Settings for this laptop
-        set guifont=Ubuntu\ Mono\ 12
-        colo clouds-midnight
+        set guifont=Ubuntu\ Mono\ 14
     elseif has("win32")
         set guifont=Consolas:h10
     end
@@ -340,11 +337,19 @@ nnoremap <S-x> :TagbarToggle<CR>
 " Open a Scratch buffer
 "nnoremap <leader><tab> :Scratch<CR>
 
-" Remap bufexplorer to open as a horizontal split
-nnoremap <leader>be :BufExplorerHorizontalSplit<CR>
-
 " DelimitMate
-au FileType vim,html,xml let b:delimitMate_matchpairs = "(:),[:],{:},<:>"
+let delimitMate_matchpairs = "(:),[:],{:},<:>"
+au FileType vim,html let b:delimitMate_matchpairs = "(:),[:],{:},<:>"
+
+" CtrlP.vim
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,                    " MacOSX/Linux
+set wildignore+=tmp\*,*.swp,*.zip,*.exe                      " Windows
+set wildignore+=*.avi,*.mpg,*.flv,*.ogv,*.AVI                " Videos
+set wildignore+=*.jpg,*.png,*.gif,*.JPG,*.GIF                " Images
+set wildignore+=*.mp3,*.flac,*.ogg,*.wav,*.WAV,*.MP3,*.FLAC  " Audio/Music
+set wildignore+=*.zip,*.rar,*.ZIP,*.cbz,*.cbr,*.tar.gz,*.tar " Archive
+
+let g:ctrlp_custom_ignore = '\.git$\|\.hg$\|\.svn$\|\.noscan$'
 
 " }}}
 

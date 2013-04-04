@@ -101,3 +101,4 @@ hi cssClassName  guifg=#e92e2e guibg=NONE gui=NONE
 hi cssValueLength  guifg=#46a609 guibg=NONE gui=NONE
 hi cssCommonAttr  guifg=#a165ac guibg=NONE gui=NONE
 hi cssBraces  guifg=NONE guibg=NONE gui=NONE
+ hi Conceal  guibg=NONE gui=NONE
