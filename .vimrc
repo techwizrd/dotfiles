@@ -29,29 +29,30 @@ if has("win32")
 endif
 
 " Enable Pathogen to load plugin bundles from ~/.vim/bundle/
-"filetype off       " temporarily disable for Pathogen
-"call pathogen#runtime_append_all_bundles()
-"filetype plugin on " re-enable filetype plugin
+filetype off       " temporarily disable for Pathogen
+call pathogen#runtime_append_all_bundles()
+filetype plugin on " re-enable filetype plugin
 
 " Enable Vundle to load plugin bundles from ~/.vim/bundle/
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-Bundle 'gmarik/vundle'
+"set rtp+=~/.vim/bundle/vundle/
+"call vundle#rc()
+"Bundle 'gmarik/vundle'
 
-" Bundles {{{
-Bundle 'Raimondi/delimitMate'
-Bundle 'tpope/vim-endwise'
-Bundle 'scrooloose/nerdcommenter'
-Bundle 'scrooloose/nerdtree'
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'Tagbar'
-Bundle 'Lokaltog/vim-powerline'
-Bundle 'wincent/Command-T'
-" vim-script mirrors
-Bundle 'vim-scripts/bufexplorer.zip'
-Bundle 'vim-scripts/pythoncomplete'
-Bundle 'vim-scripts/UltiSnips'
-" }}}
+"" Bundles {{{
+"Bundle 'Raimondi/delimitMate'
+"Bundle 'tpope/vim-endwise'
+"Bundle 'scrooloose/nerdcommenter'
+"Bundle 'scrooloose/nerdtree'
+"Bundle 'altercation/vim-colors-solarized'
+"Bundle 'Tagbar'
+"Bundle 'Lokaltog/vim-powerline'
+"Bundle 'myusuf3/numbers.vim'
+"" vim-script mirrors
+"Bundle 'vim-scripts/bufexplorer.zip'
+"Bundle 'vim-scripts/pythoncomplete'
+"Bundle 'vim-scripts/UltiSnips'
+"Bundle 'vim-scripts/AutoComplPop'
+"" }}}
 
 filetype plugin on " re-enable filetype plugin
 
@@ -90,6 +91,9 @@ set laststatus=2   " show statusline by default (for vim-powerline)
 " Show tabstops (and optionally eol characters)
 set list listchars=tab:▸·,trail:·
 "set list listchars=tab:▸\ ,eol:¬
+
+nnoremap <leader>qw :set list listchars=tab:▸·,trail:·<CR>
+nnoremap <leader>qe :set list!<CR>
 
 " HELPFUL REMAPPINGS {{{
 
@@ -189,7 +193,11 @@ if has('gui_running') " gvim options
     "set guioptions-=b " remove bottom scrollbar
 
     if has("unix")
-        set guifont=Monospace\ 8
+        "set guifont=Monospace\ 8
+
+        " Settings for this laptop
+        set guifont=Ubuntu\ Mono\ 12
+        colo clouds-midnight
     elseif has("win32")
         set guifont=Consolas:h10
     end
@@ -332,9 +340,11 @@ nnoremap <S-x> :TagbarToggle<CR>
 " Open a Scratch buffer
 "nnoremap <leader><tab> :Scratch<CR>
 
+" Remap bufexplorer to open as a horizontal split
+nnoremap <leader>be :BufExplorerHorizontalSplit<CR>
+
 " DelimitMate
-let delimitMate_matchpairs = "(:),[:],{:},<:>"
-au FileType vim,html let b:delimitMate_matchpairs = "(:),[:],{:},<:>"
+au FileType vim,html,xml let b:delimitMate_matchpairs = "(:),[:],{:},<:>"
 
 " }}}
 

@@ -78,9 +78,9 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 # some more ls aliases
-#alias ll='ls -l'
-#alias la='ls -A'
-#alias l='ls -CF'
+alias ll='ls -l'
+alias la='ls -A'
+alias sl='echo "It is \"ls\", not \"sl\". Slow down, bro."; ls'
 alias latest_downloads='ls -t ~/Downloads/ | head '
 alias rm="rm -rv"
 
@@ -146,6 +146,11 @@ function _prompt_tunadir {
     export PS1
 }
 
+function _prompt_presentation {
+    PS1='$ '
+    export PS1
+}
+
 function _prompt_block {
     PS1='\[\e[40m\]\[\e[1;37m\] \u \[\e[47m\]\[\e[1;30m\] \w \[\e[0m\]\[\e[1;37m\]\[\e[42m\] > \[\e[0m\] '
     export PS1
@@ -159,7 +164,7 @@ function _prompt_block_short {
 EDITOR=vim
 set -o vi
 
-alias upgrade-everything="sudo apt-get update && sudo apt-get dist-upgrade -y --force-yes && ~/.shadowbin/nme 'Upgrade Complete'"
+alias upgrade-everything="sudo apt-get update && sudo apt-get dist-upgrade -y --force-yes && notify-send 'Upgrade Complete' 'System is now up-to-date'"
 
 #python ~/.shadowbin/untiltest.py
 
@@ -169,3 +174,6 @@ alias upgrade-everything="sudo apt-get update && sudo apt-get dist-upgrade -y --
 _prompt_tunadir
 #_prompt_block
 #_prompt_block2
+#_prompt_presentation
+
+source ~/.local/bin/bashmarks.sh
