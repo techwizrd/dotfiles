@@ -45,6 +45,9 @@ Plug 'tpope/vim-markdown', {'for': 'markdown'}
 Plug 'tpope/vim-haml', {'for': 'haml,sass'}
 Plug 'othree/html5.vim', {'for': 'html,django'}
 Plug 'klen/python-mode', {'for': 'python'}
+Plug 'dag/vim-fish', {'for': 'fish'}
+Plug 'autowitch/hive.vim', {'for': 'hive'}
+Plug 'motus/pig.vim', {'for': 'pig'}
 
 call plug#end()
 " }}}
@@ -306,6 +309,14 @@ nnoremap <leader>v "+gP
 vnoremap <C-X> "+x
 vnoremap <C-C> "+y
 
+" }}}
+
+" CUSTOM FILETYPES {{{
+" for .hql files
+au BufNewFile,BufRead *.hql set filetype=hive expandtab
+
+" for .q files
+au BufNewFile,BufRead *.q set filetype=hive expandtab
 " }}}
 
 " }}}
