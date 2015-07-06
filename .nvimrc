@@ -38,7 +38,6 @@ Plug 'vim-scripts/L9'
 Plug 'othree/vim-autocomplpop'
 Plug 'ehamberg/vim-cute-python', {'for': 'python'}
 Plug 'tpope/vim-endwise', {'for': 'ruby'}
-Plug 'tpope/vim-endwise', {'for': 'ruby'}
 Plug 'Twinside/vim-haskellConceal', {'for': 'haskell'}
 Plug 'pangloss/vim-javascript', {'for': 'javascript'}
 Plug 'tpope/vim-markdown', {'for': 'markdown'}
