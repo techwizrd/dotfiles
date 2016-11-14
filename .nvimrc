@@ -38,15 +38,15 @@ Plug 'vim-scripts/L9'
 Plug 'othree/vim-autocomplpop'
 Plug 'ehamberg/vim-cute-python', {'for': 'python'}
 Plug 'tpope/vim-endwise', {'for': 'ruby'}
+Plug 'tpope/vim-endwise', {'for': 'ruby'}
 Plug 'Twinside/vim-haskellConceal', {'for': 'haskell'}
 Plug 'pangloss/vim-javascript', {'for': 'javascript'}
 Plug 'tpope/vim-markdown', {'for': 'markdown'}
 Plug 'tpope/vim-haml', {'for': 'haml,sass'}
 Plug 'othree/html5.vim', {'for': 'html,django'}
 Plug 'klen/python-mode', {'for': 'python'}
-Plug 'dag/vim-fish', {'for': 'fish'}
-Plug 'autowitch/hive.vim', {'for': 'hive'}
-Plug 'motus/pig.vim', {'for': 'pig'}
+Plug 'honza/vim-snippets'
+Plug 'leafgarland/typescript-vim'
 
 call plug#end()
 " }}}
@@ -310,14 +310,6 @@ vnoremap <C-C> "+y
 
 " }}}
 
-" CUSTOM FILETYPES {{{
-" for .hql files
-au BufNewFile,BufRead *.hql set filetype=hive expandtab
-
-" for .q files
-au BufNewFile,BufRead *.q set filetype=hive expandtab
-" }}}
-
 " }}}
 
 " PLUGIN OPTIONS AND PLUGIN REMAPPINGS {{{
@@ -353,5 +345,13 @@ let g:ctrlp_custom_ignore = {
   \ 'file': '\v\.(exe|so|dll)$',
   \ }
 let g:ctrlp_cmd = 'CtrlPMixed'
+
+" UltiSnips
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" If you want :UltiSnipsEdit to split your window.
+"let g:UltiSnipsEditSplit="vertical"
 
 " }}}
