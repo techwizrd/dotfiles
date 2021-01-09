@@ -15,39 +15,81 @@ if has("win32")
     set runtimepath=~/.vim,$VIMRUNTIME
 endif
 
+" Statusline configuration for vim-crystalline {{{
+" vim-crystalline is supposedly faster than vim-airline
+function! StatusLine(...)
+  return crystalline#mode() . crystalline#right_mode_sep('')
+        \ . ' %f%h%w%m%r ' . crystalline#right_sep('', 'Fill') . '%='
+        \ . crystalline#left_sep('', 'Fill') . ' %{&ft}[%{&fenc!=#""?&fenc:&enc}][%{&ff}] '
+endfunction
+let g:crystalline_enable_sep = 1
+let g:crystalline_statusline_fn = 'StatusLine'
+let g:crystalline_theme = 'dracula'
+set laststatus=2
+" }}}
+
 " Enable vim-plug to load plugins {{{
+" TODO: Use `nvim --startuptime nvim.log` to check how many milliseconds each
+" plugin adds to the startup time. We should be able to pare this down a bit.
+" TODO: Organize and document the purpose of each of these plugins
 call plug#begin('~/.nvim/bundle')
 
 " Make sure you use single quotes
-"Plug 'junegunn/vim-easy-align'
+"Plug 'tpope/vim-sensible' " sensible defaults for vim
+Plug 'junegunn/vim-easy-align', {'on': 'EasyAlign'}
 Plug 'jlanzarotta/bufexplorer'
 Plug 'kien/ctrlp.vim'
-Plug 'majutsushi/tagbar'
-Plug 'bling/vim-airline'
+" TODO: Organize and document the purpose of each of these plugins
+Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
+"Plug 'bling/vim-airline'
+Plug 'rbong/vim-crystalline'
 Plug 'Lokaltog/vim-easymotion'
 Plug 'terryma/vim-expand-region'
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-Plug 'mattn/emmet-vim', {'for': 'html,css,javascript,django'}
+Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
+" Add filetype icons to NERRDtree, vim-airline, CtrlP, etc.
+" TODO: Install patched font
+"Plug 'ryanoasis/vim-devicons'
+"Plug 'mattn/emmet-vim', {'for': 'html,css,javascript,django'}
 Plug 'groenewege/vim-less', {'for': 'less'}
 Plug 'Raimondi/delimitMate'
+" TODO: Compare nerdcommenter with vim-commentary at some point
 Plug 'scrooloose/nerdcommenter'
-Plug 'chrisbra/NrrwRgn'
-Plug 'wting/rust.vim', {'for': 'rust'}
-Plug 'SirVer/UltiSnips'
-Plug 'vim-scripts/L9'
-Plug 'othree/vim-autocomplpop'
+Plug 'chrisbra/NrrwRgn', {'on': 'NR'}
+Plug 'SirVer/UltiSnips' | Plug 'honza/vim-snippets'
+Plug 'othree/vim-autocomplpop' | Plug 'vim-scripts/L9'
 Plug 'ehamberg/vim-cute-python', {'for': 'python'}
-Plug 'tpope/vim-endwise', {'for': 'ruby'}
 Plug 'tpope/vim-endwise', {'for': 'ruby'}
 Plug 'Twinside/vim-haskellConceal', {'for': 'haskell'}
 Plug 'pangloss/vim-javascript', {'for': 'javascript'}
 Plug 'tpope/vim-markdown', {'for': 'markdown'}
+Plug 'jtratner/vim-flavored-markdown', {'for': 'markdown'}
+Plug 'mzlogin/vim-markdown-toc', {'for': 'markdown', 'on': ['GenTocGFM', 'GenTocRedcarpet', 'GenTocGitlab', 'GenTocMarked', 'UpdateToc', 'RemoveToc']}
 Plug 'tpope/vim-haml', {'for': 'haml,sass'}
 Plug 'othree/html5.vim', {'for': 'html,django'}
 Plug 'klen/python-mode', {'for': 'python'}
-Plug 'honza/vim-snippets'
-Plug 'leafgarland/typescript-vim'
-
+Plug 'jmcantrell/vim-virtualenv', {'for': 'python'}
+Plug 'leafgarland/typescript-vim', {'for': 'typescript'}
+Plug 'pearofducks/ansible-vim', { 'do': './UltiSnips/generate.sh' }
+"Plug 'hashivim/vim-vagrant'
+Plug 'vimwiki/vimwiki'
+" Add filetype icons to NERRDtree, vim-airline, CtrlP, etc.
+Plug 'rust-lang/rust.vim', {'for': 'rust'}
+Plug 'freitass/todo.txt-vim'
+Plug 'ekalinin/Dockerfile.vim'
+Plug 'dracula/vim', {'as': 'dracula'}
+Plug 'Yggdroot/indentLine', {'for': 'yaml'}
+Plug 'pedrohdz/vim-yaml-folds', {'for': 'yaml'}
+Plug 'airblade/vim-gitgutter', {'on': ['GitGutterEnable', 'GitGutterToggle']}
+"Plug 'rktjmp/git-info' " Extracts git info for use in status line
+"Plug 'JuliaEditorSupport/julia-vim'
+"Plug 'w0rp/ale'  " Asynchronous linting using LSP
+" Physics-based smooth scrolling for Vim/Neovim
+Plug 'yuttie/comfortable-motion.vim'
+"Plug 'vim-test/vim-test' " Run tests from vim
+" Respect and use EditorConfig files if found
+Plug 'editorconfig/editorconfig-vim'
+" Intelligently reopen files at last edit position
+Plug 'farmergreg/vim-lastplace'
 call plug#end()
 " }}}
 
@@ -72,7 +114,7 @@ set encoding=utf-8                            " encoding used within a vim
 syntax on          " enable syntax highlighting
 set title          " set title to filename and modification status
 set ruler          " always show current position
-"set ttyfast
+set ttyfast        " tell vim we have a fast tty (good for local computer, not for ssh)
 set mouse=a        " enable mouse usage in terminal (good for scrolling)
 set backspace=2    " allow backspacing over everything in insert mode
 
@@ -146,8 +188,9 @@ nnoremap N Nzz
 
 " LINE NUMBERING AND COLUMNS {{{
 
-set cursorline     " highglight cursor line (useful, but sometimes slow)
-set cursorcolumn   " highlight currnet column  (useful,  but sometimes slow)
+" NOTE: Disabled these because they can be distracting with Dracula
+"set cursorline     " highglight cursor line (useful, but sometimes slow)
+"set cursorcolumn   " highlight currnet column  (useful,  but sometimes slow)
 
 if version >= 703 "Vim 7.3+ specific features
     set colorcolumn=80
@@ -161,7 +204,7 @@ nnoremap <leader>e :set nonumber!<CR>:set foldcolumn=0<CR>
 
 " VISUAL THEME AND APPEARANCE {{{
 
-set background=dark
+"set background=dark
 
 if has('gui_running') " gvim options
     colorscheme wombat256
@@ -200,7 +243,11 @@ else " terminal vim options
     endif
 endif
 
-colorscheme wombat256
+"colorscheme wombat256
+let g:dracula_italic=0
+let g:dracula_colorterm=0
+set termguicolors
+colorscheme dracula
 
 "}}}
 
@@ -250,7 +297,7 @@ set autochdir " change to directory of active buffer
 set switchbuf=useopen
 
 " Switch buffers using PageUp/PageDown and tabs with Control+PageUp/PageDown
-nnoremap <PageDown> :bn<CR>     
+nnoremap <PageDown> :bn<CR>
 nnoremap <PageUp> :bp<CR>
 nnoremap <Control><PageDown> :tabn<CR>
 nnoremap <Control><PageUp> :tabp<CR>
@@ -273,6 +320,7 @@ filetype indent on " enable automatic indentation based on filetype
 
 " CUSTOM FILETYPE INDENTING {{{
 
+" TODO: Do I still want this stuff?
 autocmd FileType alsaconf,asm,autoit,context,css,dot,eruby,html,io,javascript,lisp,markdown,ocaml,perl,php,smarty,sql,plaintex,ruby,sh,svn,tex,textile,vb,vim,xhtml,xml,xslt setlocal ts=2 sts=2 sw=2 expandtab nocindent
 autocmd FileType c,cs,cpp,php setlocal ts=3 sts=3 sw=3 expandtab
 autocmd FileType python setlocal ts=4 sts=4 sw=4 expandtab
@@ -321,6 +369,9 @@ let g:airline_powerline_fonts = 1 " make vim-airline use Powerline fonts
 let g:rust_conceal = 1     " Enable conceal support in Rust
 "let g:rust_conceal_mod_path = 1 " Conceal the :: in Rust
 
+" Start YAML files unfolded
+set foldlevelstart=20
+
 " Open NERDTree or TagList using Control+x and Shift+x respectively
 nnoremap <C-x> :NERDTreeToggle<CR>
 nnoremap <S-x> :TagbarToggle<CR>
@@ -354,4 +405,38 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 " If you want :UltiSnipsEdit to split your window.
 "let g:UltiSnipsEditSplit="vertical"
 
+" Use Github Flavored Markdown by default
+augroup markdown
+    au!
+    au BufNewFile,BufRead *.md,*.markdown setlocal filetype=ghmarkdown
+augroup END
+
+" Comfortable-motion: physics based smooth scrolling for Vim/Neovim
+"let g:comfortable_motion_scroll_down_key = "j"
+"let g:comfortable_motion_scroll_up_key = "k"
+
+" Avoid loading EditorConfig for any remote files over ssh
+let g:EditorConfig_exclude_patterns = ['scp://.*']
+
+" TODO: This slows down Vim quite a bit on startup. We should asynchronously
+" call `git rev-parse --is-inside-work-tree` using job_start (Vim8) or
+" jobstart (Neovim) and use that for our if statement. Then we can set the
+" following. This might be worth spinning out into a plugin.
+" - g:pymode_rope=1
+" - GitGutterEnable
+" there's a better way to do this.
+" Only use Rope for Git repositories
+"python3 << EOF
+"import vim
+"import git
+"def is_git_repo():
+"    try:
+"        _ = git.Repo('.', search_parent_directories=True).git_dir
+"        return "1"
+"    except:
+"        return "0"
+"vim.command("let g:pymode_rope = " + is_git_repo())
+"EOF
+
 " }}}
+
