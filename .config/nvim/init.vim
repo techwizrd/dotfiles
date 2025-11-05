@@ -17,13 +17,45 @@ endif
 
 " Statusline configuration for vim-crystalline {{{
 " vim-crystalline is supposedly faster than vim-airline
-function! StatusLine(...)
-  return crystalline#mode() . crystalline#right_mode_sep('')
-        \ . ' %f%h%w%m%r ' . crystalline#right_sep('', 'Fill') . '%='
-        \ . crystalline#left_sep('', 'Fill') . ' %{&ft}[%{&fenc!=#""?&fenc:&enc}][%{&ff}] '
+"function! StatusLine(...)
+"  return crystalline#mode() . crystalline#right_mode_sep('')
+"        \ . ' %f%h%w%m%r ' . crystalline#right_sep('', 'Fill') . '%='
+"        \ . crystalline#left_sep('', 'Fill') . ' %{&ft}[%{&fenc!=#""?&fenc:&enc}][%{&ff}] '
+"endfunction
+"let g:crystalline_enable_sep = 1
+"let g:crystalline_statusline_fn = 'StatusLine'
+
+"function! g:CrystallineStatuslineFn(winnr)
+"  let l:s = ''
+
+"  let l:s .= ' %f%h%w%m%r '
+
+"  " Add the current branch from vim-fugitive
+"  " Plugins often provide functions for the statusline
+"  "let l:s .= '%{fugitive#Head()} '
+
+"  let l:s .= '%='
+
+"  " Show settings in the statusline
+"  let l:s .= '%{&paste ? "PASTE " : " "}'
+
+"  return l:s
+"endfunction
+
+function! g:CrystallineStatuslineFn(winnr)
+  let l:s = ''
+
+  " Automatically create a mode highlight group, mode label, and separator
+  " Same arguments as crystalline#Sep()
+  let l:s .= crystalline#ModeSection(0, 'A', 'B')
+
+  let l:s .= ' %f%h%w%m%r '
+
+  let l:s .= crystalline#Sep(0, 'B', 'Fill')
+
+  return l:s
 endfunction
-let g:crystalline_enable_sep = 1
-let g:crystalline_statusline_fn = 'StatusLine'
+
 let g:crystalline_theme = 'dracula'
 set laststatus=2
 " }}}
@@ -32,6 +64,8 @@ set laststatus=2
 " TODO: Use `nvim --startuptime nvim.log` to check how many milliseconds each
 " plugin adds to the startup time. We should be able to pare this down a bit.
 " TODO: Organize and document the purpose of each of these plugins
+" TODO: Add pyright through either coc or ALE.
+" TODO: Switch to either coc or ALE for autocomplete.
 call plug#begin('~/.nvim/bundle')
 
 " Make sure you use single quotes
@@ -55,7 +89,7 @@ Plug 'Raimondi/delimitMate'
 " TODO: Compare nerdcommenter with vim-commentary at some point
 Plug 'scrooloose/nerdcommenter'
 Plug 'chrisbra/NrrwRgn', {'on': 'NR'}
-Plug 'SirVer/UltiSnips' | Plug 'honza/vim-snippets'
+"Plug 'SirVer/UltiSnips' | Plug 'honza/vim-snippets'
 Plug 'othree/vim-autocomplpop' | Plug 'vim-scripts/L9'
 Plug 'ehamberg/vim-cute-python', {'for': 'python'}
 Plug 'tpope/vim-endwise', {'for': 'ruby'}
@@ -101,7 +135,7 @@ let mapleader=","
 
 " ENCODING {{{
 
-set termencoding=utf-8
+"set termencoding=utf-8
 set encoding=utf-8                            " encoding used within a vim
 "set fileencodings=ucs-bom,utf-8,default,latin1 " encodings to try when editing a file
 
